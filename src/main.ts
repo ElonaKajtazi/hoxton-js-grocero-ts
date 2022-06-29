@@ -1,8 +1,33 @@
-import './style.css';
-import './reset.css';
+import "./reset.css";
+import "./style.css";
 
+// Deliverables
+// - Create a new Vite project with npm create vite ✅
+// - Follow the lecture's instructions to run all the code you need to make it work ✅
+// - Make sure it runs on your machine, via http://localhost:3000 ✅
+// - Migrate the necessary files into the new project ✅
+// - Copy over the javascript, css and HTML code into the TS project ✅
+// - Make sure the app behaves as before ✅
 
-let state = {
+// Note
+// Make sure that:
+// 1.  you  keep the <script> inside of your HTML's body ✅
+// 2. you keep the import './styles.css in your javascript file. (otherwise your app may break) ✅
+
+// Bonus-ish?
+// Start adding types to your code! 🎉
+
+type StoreItem = {
+  id: number;
+  name: string;
+  price: number;
+  inCart: number;
+  icon: string;
+};
+type State = {
+  storeItems: StoreItem[];
+};
+let state: State = {
   storeItems: [
     {
       id: 1,
@@ -76,28 +101,22 @@ let state = {
     },
   ],
 };
-function getInCart(){
-  return state.storeItems.filter(item => item.inCart > 0);
+function getInCart() {
+  return state.storeItems.filter((item) => item.inCart > 0);
 }
-function increaseItem(item) {
+function increaseItem(item: StoreItem) {
   return item.inCart++;
 }
-function decreaseItem(item) {
+function decreaseItem(item: StoreItem) {
   return item.inCart--;
 }
-function total (){
+function total() {
   let total = 0;
   for (let item of state.storeItems) {
     total += item.price * item.inCart;
   }
   return total;
 }
-// function removeItem (item){
-//   let updatedItems = state.storeItems.filter((item) => item.inCart === 0);
-//   state.storeItems = updatedItems;
-// }
-
-
 
 function renderStoreItems() {
   //Creating the elements
@@ -143,8 +162,7 @@ function renderCartItems() {
       if (item.inCart > 0) {
         decreaseItem(item);
         render();
-      } else
-      render();
+      } else render();
     });
 
     let spanCartEl = document.createElement("span");
@@ -170,8 +188,7 @@ function renderCartItems() {
     cartUl.append(liCartEl);
   }
 }
-function renderTotal(){
-  
+function renderTotal() {
   let h3El = document.createElement("h3");
   h3El.textContent = "Total";
   let spanEl = document.createElement("span");
@@ -194,4 +211,3 @@ function render() {
 }
 
 render();
-
